@@ -38,22 +38,55 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <strong>Table Reservation</strong>
+              <strong>Questionnaire</strong>
             </h3>
+            <h4>
+              <p>
+                <strong>Fill out random numbers please</strong>
+              </p>
+            </h4>
           </div>
           <div class="panel-body">
             <form role="form">
               <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name">
+                <label for="1">Question 1</label>
+                <input type="text" class="form-control" id="1">
               </div>
               <div class="form-group">
-                <label for="phonenumber">Phone Number</label>
-                <input type="text" class="form-control" id="phonenumber">
+                <label for="2">Question 2</label>
+                <input type="text" class="form-control" id="2">
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" id="email">
+                <label for="3">Question 3</label>
+                <input type="text" class="form-control" id="3">
+              </div>
+              <div class="form-group">
+                <label for="4">Question 4</label>
+                <input type="text" class="form-control" id="4">
+              </div>
+              <div class="form-group">
+                <label for="5">Question 5</label>
+                <input type="text" class="form-control" id="5">
+              </div>
+              <div class="form-group">
+                <label for="6">Question 6</label>
+                <input type="text" class="form-control" id="6">
+              </div>
+              <div class="form-group">
+                <label for="7">Question 7</label>
+                <input type="text" class="form-control" id="7">
+              </div>
+              <div class="form-group">
+                <label for="8">Question 8</label>
+                <input type="text" class="form-control" id="8">
+              </div>
+              <div class="form-group">
+                <label for="9">Question 9</label>
+                <input type="text" class="form-control" id="9">
+              </div>
+              <div class="form-group">
+                <label for="10">Question 10</label>
+                <input type="text" class="form-control" id="10">
               </div>
             </form>
             <br>
@@ -81,16 +114,20 @@
 
   <script> type = "text/javascript" >
 
-
-
-      // Question: What does this code do?
       $("#add-btn").on("click", function (event) {
         event.preventDefault();
 
-        var table = {
-          name: $("#name").val().trim(),
-          phonenumber: $("#phonenumber").val().trim(),
-          email: $("#email").val().trim(),
+        var results = {
+          '1': $("#1").val().trim(),
+          '2': $("#2").val().trim(),
+          '3': $("#3").val().trim(),
+          '4': $("#4").val().trim(),
+          '5': $("#5").val().trim(),
+          '6': $("#6").val().trim(),
+          '7': $("#7").val().trim(),
+          '8': $("#8").val().trim(),
+          '9': $("#9").val().trim(),
+          '10': $("#10").val().trim(),
         };
 
         var tables;
