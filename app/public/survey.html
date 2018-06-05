@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Make Reservations</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="jumbotron col-lg-12 text-center">
+        <h1>
+          <span class="glyphicon glyphicon-magnet"></span>Adult Friend Finder</h1>
+        <h3>So Exciting!</h3>
+        <hr>
+        <a href="/view">
+          <button class="btn btn-danger btn-lg">
+            <span class="fa fa-eye"></span> View Pictures of potential friends
+          </button>
+        </a>
+        <a href="/">
+          <button class="btn btn-primary btn-lg">
+            <span class="fa fa-home">Home Page</span>
+          </button>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class=" jumbotron col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <strong>Table Reservation</strong>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name">
+              </div>
+              <div class="form-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="text" class="form-control" id="phonenumber">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email">
+              </div>
+            </form>
+            <br>
+            <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-md" id="add-btn">
+                <span class="fa fa-fire"></span> Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="jumbotron text-center col-md-12">
+        <h4> control panel only viewable for administator</h4>
+        <a href="/api/friends">
+          <span class="fa fa-th-list"></span> View API Friends List</a>
+        <form method="post" action="/api/clear">
+          <button type="submit" class="btn btn-md" id="clear">
+            <span class="fa fa-trash"></span> Clear Table</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script> type = "text/javascript" >
+
+
+
+      // Question: What does this code do?
+      $("#add-btn").on("click", function (event) {
+        event.preventDefault();
+
+        var table = {
+          name: $("#name").val().trim(),
+          phonenumber: $("#phonenumber").val().trim(),
+          email: $("#email").val().trim(),
+        };
+
+        var tables;
+        $.get("/api/tables", function (data) {
+          tables = data.length;
+          console.log(tables);
+          if (tables > 4) {
+            $.post("/api/waitlist", table)
+              .then(function (data) {
+                console.log(data);
+                if (data > 5) {
+                  alert("Sorry there is no availability for the rest of the day. Please try again tomorrow");
+                } else {
+                  alert("Sorry current we have no table available, Adding you to wait list...");
+                }
+              });
+          }
+          else {
+            $.post("/api/tables", table)
+              .then(function (data) {
+                console.log(data);
+                alert("Adding your table...");
+              });
+          }
+        });
+
+
+
+        //empty the form for new entry
+        $("#name").val("");
+        $("#phonenumber").val("");
+        $("#email").val("");
+        $("#uniqueid").val("");
+      });
+  </script>
+</body>
+
+</html>

@@ -1,11 +1,36 @@
 
-module.exports = {
+const path = require('path');
+const data = require(path.join(__dirname,'../data/friends'));
 
-  administerSurvey: function(req,res) {
-    res.status(200).send();
-  },
-
-  default: function(req,res) {
-    res.status(200).send();
+class HTMLRoutes {
+  
+  /**
+   * attaches our routes to the express server
+   * @param  {Object} app is the instance of our express server
+   */
+  attach(app) {
+    app.get('/view',this.nonSense);
+    app.get('/survey',this.sendSurvey);
+    app.get('/',this.home);
   }
+
+  sendSurvey(req,res) {
+    let { body } = req;
+    console.log(body);
+    res.sendFile(path.join(__dirname,'../public/survey.html'));
+  }
+
+  home(req,res) {
+    let { body } = req;
+    res.sendFile(path.join(__dirname,'../public/home.html'));
+  }
+
+  nonSense(req,res) {
+    let { body } = req;
+    console.log(body);
+    res.sendFile(path.join(__dirname,'../public/potential-friends.html'));
+  }
+
 }
+
+module.exports = new HTMLRoutes();
