@@ -10,7 +10,7 @@
     "build-babel": "babel -d ./build ./app -s",
     "build": "npm run clean && npm run build-babel",
     "start": "babel-node server.js",
-    "heroku-postbuild": "npm install"
+    "heroku-postbuild": "npm install && npm run build"
   },
   "keywords": [],
   "author": "",
