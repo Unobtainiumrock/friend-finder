@@ -9,8 +9,8 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./app -s",
     "build": "npm run clean && npm run build-babel",
-    "start": "babel-node /build/server.js",
-    "heroku-postbuild": "npm install && npm run build "
+    "start": "npm run build && node ./build/server.js",
+    "heroku-postbuild": "npm install"
   },
   "keywords": [],
   "author": "",
