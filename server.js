@@ -1,7 +1,7 @@
 // Vendor
 const express = require('express');
 const app = express();
-const PORT = process.env.port || 3000;
+// const PORT = process.env.port || 3000;
 const path = require('path');
 
 // Middleware
@@ -18,4 +18,4 @@ APIRoutes.attach(app);
 const HTMLRoutes = require(path.join(__dirname,'/app/routing/htmlRoutes'));
 HTMLRoutes.attach(app);
 
-app.listen(PORT,() => console.log(`Listening on port: ${PORT}`));
+app.listen(process.env.port || 3000,() => console.log(`Listening on port: ${process.env.port || 3000}`));
