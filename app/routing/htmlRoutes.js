@@ -17,18 +17,18 @@ class HTMLRoutes {
   sendSurvey(req,res) {
     let { body } = req;
     console.log(body);
-    res.sendFile(path.join(__dirname,'../public/survey.html'));
+    res.sendFile(path.join(__dirname,'../../app/public/survey.html'));
   }
 
   home(req,res) {
     let { body } = req;
-    res.sendFile(path.join(__dirname,'../public/home.html'));
+    res.sendFile(path.join(__dirname,'../../app/public/home.html'));
   }
 
   nonSense(req,res) {
     let { body } = req;
     console.log(body);
-    res.sendFile(path.join(__dirname,'../public/potential-friends.html'));
+    res.sendFile(path.join(__dirname,'../../app/public/potential-friends.html'));
   }
 
 }

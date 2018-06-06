@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 
 
 // Routes 
-const APIRoutes = require(path.join(__dirname,'/app/routing/apiRoutes'));
+const APIRoutes = require(path.join(__dirname,'/routing/apiRoutes'));
 APIRoutes.attach(app);
 
-const HTMLRoutes = require(path.join(__dirname,'/app/routing/htmlRoutes'));
+const HTMLRoutes = require(path.join(__dirname,'/routing/htmlRoutes'));
 HTMLRoutes.attach(app);
 
 app.listen(PORT,() => console.log(`Listening on port: ${PORT}`));
