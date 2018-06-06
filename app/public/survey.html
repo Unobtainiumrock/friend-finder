@@ -10,11 +10,36 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
   <div class="container">
+    <!-- Button trigger modal hidden -->
+    <button id="modalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="display:none">
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="modalBody" class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    </div>
     <div class="row">
       <div class="jumbotron col-lg-12 text-center">
         <h1>
@@ -42,52 +67,13 @@
             </h3>
             <h4>
               <p>
-                <strong>Fill out random numbers please</strong>
+                <strong>Score on a scale of 1 - 5</strong>
               </p>
             </h4>
           </div>
           <div class="panel-body">
-            <form role="form">
-              <div class="form-group">
-                <label for="1">Question 1</label>
-                <input type="text" class="form-control" id="1">
-              </div>
-              <div class="form-group">
-                <label for="2">Question 2</label>
-                <input type="text" class="form-control" id="2">
-              </div>
-              <div class="form-group">
-                <label for="3">Question 3</label>
-                <input type="text" class="form-control" id="3">
-              </div>
-              <div class="form-group">
-                <label for="4">Question 4</label>
-                <input type="text" class="form-control" id="4">
-              </div>
-              <div class="form-group">
-                <label for="5">Question 5</label>
-                <input type="text" class="form-control" id="5">
-              </div>
-              <div class="form-group">
-                <label for="6">Question 6</label>
-                <input type="text" class="form-control" id="6">
-              </div>
-              <div class="form-group">
-                <label for="7">Question 7</label>
-                <input type="text" class="form-control" id="7">
-              </div>
-              <div class="form-group">
-                <label for="8">Question 8</label>
-                <input type="text" class="form-control" id="8">
-              </div>
-              <div class="form-group">
-                <label for="9">Question 9</label>
-                <input type="text" class="form-control" id="9">
-              </div>
-              <div class="form-group">
-                <label for="10">Question 10</label>
-                <input type="text" class="form-control" id="10">
-              </div>
+            <form id="questionnaire" role="form">
+
             </form>
             <br>
             <div class="text-right">
@@ -113,55 +99,88 @@
   </div>
 
   <script> type = "text/javascript" >
-
-      $("#add-btn").on("click", function (event) {
-        event.preventDefault();
-
-        var results = {
-          '1': $("#1").val().trim(),
-          '2': $("#2").val().trim(),
-          '3': $("#3").val().trim(),
-          '4': $("#4").val().trim(),
-          '5': $("#5").val().trim(),
-          '6': $("#6").val().trim(),
-          '7': $("#7").val().trim(),
-          '8': $("#8").val().trim(),
-          '9': $("#9").val().trim(),
-          '10': $("#10").val().trim(),
-        };
-
-        var tables;
-        $.get("/api/tables", function (data) {
-          tables = data.length;
-          console.log(tables);
-          if (tables > 4) {
-            $.post("/api/waitlist", table)
-              .then(function (data) {
-                console.log(data);
-                if (data > 5) {
-                  alert("Sorry there is no availability for the rest of the day. Please try again tomorrow");
-                } else {
-                  alert("Sorry current we have no table available, Adding you to wait list...");
-                }
-              });
-          }
-          else {
-            $.post("/api/tables", table)
-              .then(function (data) {
-                console.log(data);
-                alert("Adding your table...");
-              });
-          }
-        });
-
-
-
-        //empty the form for new entry
-        $("#name").val("");
-        $("#phonenumber").val("");
-        $("#email").val("");
-        $("#uniqueid").val("");
+      $(document).ready(function () {
+        const questions = [
+          'Pizza',
+          'Burgers',
+          'Noodles',
+          'Rice',
+          'Tacos',
+          'Burritos',
+          'Orange Chicken',
+          'Fried Chicken',
+          'French Fries',
+          'Crickets'
+        ];
+        for (let i = 0; i < 10; i++) {
+          $('#questionnaire').append(`
+        <div class="form-group">
+          <label>${questions[i]}?</label>
+            <div id="${i}" class="container">
+              <form>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="1"> 1
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="2"> 2
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="3"> 3
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="4"> 4
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="optradio" value="5"> 5
+              </form>
+              </div>
+          </div>
+        `)
+        }
       });
+
+    $("#add-btn").on("click", async e => {
+      e.preventDefault();
+
+      const checkedValues = $('input:radio:checked').map(function () {
+        return this.value;
+      }).get();
+
+      // Grab results
+      let results = {};
+      for (let i = 0; i < 10; i++) {
+        results[i] = checkedValues[i];
+      }
+
+      if (checkedValues.length < 10 || checkedValues.length === undefined) {
+        alert('You must fill out the entire questionnaire!');
+      } else {
+
+        try {
+          const mostCompatible = await $.post('/api/friends', results);
+          //Reset radio buttons
+          $('input:radio:checked').each(function () {
+            $(this).attr('checked', false);
+          })
+
+          //Populate modal with most compatible friend
+          $('#modalBody').html(`
+            <div class="row">
+              <p>${mostCompatible.name}</p>
+            </div>
+            <div class="row">
+              <img src="${mostCompatible.photo}">
+            </div
+          `);
+
+          // Trigger a click on the button which makes modals appear
+          $('#modalButton').click();
+        } catch (err) {
+          console.error(err);
+        }
+        
+      }
+    });
   </script>
 </body>
 
