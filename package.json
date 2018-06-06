@@ -9,7 +9,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./app -s",
     "build": "npm run clean && npm run build-babel",
-    "start": "npm run build && node ./build/server.js",
+    "start": "npm run build && nodemon ./build/server.js",
     "heroku-postbuild": "npm install"
   },
   "keywords": [],

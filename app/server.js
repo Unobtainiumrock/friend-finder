@@ -1,11 +1,13 @@
 // Vendor
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-const path = require('path');
 
 // Middleware
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname,'/public')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
