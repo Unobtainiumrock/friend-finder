@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Make Reservations</title>
+  <title>Adult Friend Finder</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery.js"></script>
@@ -23,7 +23,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">and your match is...</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -33,7 +33,6 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
@@ -64,12 +63,11 @@
           <div class="panel-heading">
             <h3 class="panel-title">
               <strong>Questionnaire</strong>
+              <h4>Name (Required)</h4>
+              <input type="text" id="name" class="form-control" required="">
+              <h4>Link to Photo Image (Required)</h4>
+              <input type="text" id="photo" class="form-control" required="">
             </h3>
-            <h4>
-              <p>
-                <strong>Score on a scale of 1 - 5</strong>
-              </p>
-            </h4>
           </div>
           <div class="panel-body">
             <form id="questionnaire" role="form">
@@ -78,7 +76,7 @@
             <br>
             <div class="text-right">
               <button type="submit" class="btn btn-primary btn-md" id="add-btn">
-                <span class="fa fa-fire"></span> Submit</button>
+                <span class="fa fa-check-circle"></span> Submit</button>
             </div>
           </div>
         </div>
@@ -86,7 +84,7 @@
     </div>
     <div class="row ">
       <div class="jumbotron text-center col-md-12">
-        <h4> control panel only viewable for administator</h4>
+        <h4>Test Endpoint</h4>
         <a href="/api/friends">
           <span class="fa fa-th-list"></span> View API Friends List</a>
       </div>
@@ -141,17 +139,24 @@
       const checkedValues = $('input:radio:checked').map(function () {
         return this.value;
       }).get();
-
-      // Grab results
-      let results = {};
-      for (let i = 0; i < 10; i++) {
-        results[i] = checkedValues[i];
-      }
-
-      if (checkedValues.length < 10 || checkedValues.length === undefined) {
+      
+      const name = $('#name').val().trim()
+      const photo = $('#photo').val().trim()
+        
+      if (checkedValues.length < 10 || checkedValues.length === undefined || name.length === 0 || photo.length === 0) {
         alert('You must fill out the entire questionnaire!');
       } else {
-
+        let results = {};
+        let answers = [];
+        // Grab name and photo to add onto results object
+        results = { name, photo };
+    
+        checkedValues.forEach((val,idx) => {
+          answers.push(val);
+        });
+        // Add scores array to results
+        results.scores = answers;
+        
         try {
           const mostCompatible = await $.post('/api/friends', results);
           //Reset radio buttons
@@ -162,7 +167,7 @@
           //Populate modal with most compatible friend
           $('#modalBody').html(`
             <div class="row">
-              <p>${mostCompatible.name}</p>
+              <p><strong>${mostCompatible.name}<strong></p>
             </div>
             <div class="row">
               <img src="${mostCompatible.photo}">
@@ -174,7 +179,7 @@
         } catch (err) {
           console.error(err);
         }
-        
+
       }
     });
   </script>

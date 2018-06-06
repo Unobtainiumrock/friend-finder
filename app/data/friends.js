@@ -12,7 +12,7 @@ const users = [
   },
   {
     name: 'Bacon',
-    photo: 'http://www.reddit.com/r/gifs/comments/1rl3b5/homer_on_bananas/',
+    photo: 'https://media.giphy.com/media/9OUckbQ3EreNy/giphy.gif',
     scores: [5,5,5,5,5,5,5,5,5,5]
   }
 ];
