@@ -47,7 +47,7 @@ const users = [
 
 
 #### Algorithm comments
-  I really wanted to do this in a way that didn't involve nested loops. I don't think this was possible because we need to get the specific relationship between each survey question and each existing user's survey question. If it was just a matter of taking the absolute value of the difference between two survey sums, it would be fairly straightforward since we can sum the the survey results as they are submitted to the back-end.
+  I really wanted to do this in a way that didn't involve nested loops. I don't think this was possible because we need to get the specific relationship between each survey question and each existing user's survey question. If it was just a matter of taking the absolute value of the difference between two survey sums, it would be fairly straightforward since we can sum the the survey results as they are submitted to the back-end. I might be wrong, but I believe the time complexity is `O(n10)` - the number of iterations performed by `reduce` is a constant 10, and the number of reduces performed is dependent on `n` users.
 
 **In other words, this is nicer**
 ```javascript 
