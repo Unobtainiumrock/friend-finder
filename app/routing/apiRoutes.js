@@ -1,5 +1,5 @@
 
-const path = require('path');
+import path from 'path';
 const users = require(path.join(__dirname, '../data/friends'));
 
 class APIRoutes {
